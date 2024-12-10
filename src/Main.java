@@ -4,19 +4,19 @@ import java.util.Scanner;
 
 
 public class Main {
-    private static boolean isMainMenu = true;
-    private static boolean isCreateView = false;
-    private static boolean isLoginView= false;
+
+    private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         //Variables
-        Scanner scanner = new Scanner(System.in);
+        Accounts accounts = new Accounts();
+
         int mainOptionSelected;
         boolean isRunning = true;
 
         while (isRunning) {
 
-            if(isMainMenu && !isCreateView && !isLoginView) {
+            if(accounts.getMainBool() && !accounts.getCreateViewBool() && !accounts.getLoginViewBool()) {
                 System.out.println("-Welcome To Simple Banking App-:");
                 //Entry message prints
                 System.out.println("=============");
@@ -40,19 +40,27 @@ public class Main {
                     //lOGIN OPTION
                     case 1:
                         System.out.println("Option 1 Selected");
-                        LoginView();
-                        isMainMenu = false;
-                        isCreateView = false;
-                        isLoginView= true;
+
+                        //isMainMenu = false;
+                        accounts.setMainBool(false);
+                        //isCreateView = false;
+                        accounts.setCreateViewBool(false);
+                        //isLoginView= true;
+                        accounts.setLoginViewBool(true);
+                        accounts.LoginView();
+
                         
                         break;
                     //CREATE ACCOUNT OPTION
                     case 2:
                         System.out.println("Option 2 Selected");
-                        CreateView();
-                        isMainMenu = false;
-                        isCreateView = true;
-                        isLoginView= false;
+
+                        accounts.setMainBool(false);
+                        //isCreateView = false;
+                        accounts.setCreateViewBool(true);
+                        //isLoginView= true;
+                        accounts.setLoginViewBool(false);
+                        accounts.CreateView();
                         break;
 
                     //QUIT OPTION
@@ -65,26 +73,80 @@ public class Main {
                         System.out.println("That option does not exist here. try again");
                 }
             }
-
-
-
-            //if LOGIN IS SELECTED
-
-            //IF CREATE ACCOUNT IS SELECTED
-
         }
     }
 
 
-    private static void LoginView() {
-        System.out.println("LoginView");
-//        while(isLoginView){
+//    private static void LoginView() {
+//
+//        System.out.println("=============");
+//        System.out.println("Login view");
+//        System.out.println("=============");
+//        while(isLoginView && !isMainMenu && !isCreateView) {
+//            String usernameEntered;
+//            String passwordEntered;
+//            System.out.println("""
+//                            If You Want To Go Back To Main Menu Enter '0'.
+//                            For any following prompts in this view.
+//                            """);
+//
+//            System.out.println("Enter your username: ");
+//            usernameEntered = scanner.nextLine();
+//            if (usernameEntered.equals("0")) {
+//                isMainMenu = true;
+//                isCreateView = false;
+//                isLoginView = false;
+//                System.out.println("<--Going Back");
+//                break;
+//            }
+//
+//            System.out.println("Enter your password: ");
+//            passwordEntered = scanner.nextLine();
+//            if (passwordEntered.equals("0")) {
+//                isMainMenu = true;
+//                isCreateView = false;
+//                isLoginView = false;
+//                System.out.println("<--Going Back");
+//                break;
+//            }
+//        }
+//    }
+//
+//    private static void CreateView() {
+//        System.out.println("=============");
+//        System.out.println("Create Account View");
+//        System.out.println("=============");
+//
+//        while(isCreateView && !isLoginView && !isMainMenu) {
+//            String usernameEntered;
+//            String passwordEntered;
+//            System.out.println("""
+//                            If You Want To Go Back To Main Menu Enter '0'.
+//                            For any following prompts in this view.
+//                            """);
+//
+//            System.out.println("Enter your username: ");
+//            usernameEntered = scanner.nextLine();
+//            if (usernameEntered.equals("0")) {
+//                isMainMenu = false;
+//                isCreateView = true;
+//                isLoginView = false;
+//                System.out.println("<--Going Back");
+//                break;
+//
+//            }
+//            System.out.println("Enter your password: ");
+//            passwordEntered = scanner.nextLine();
+//            if (passwordEntered.equals("0")) {
+//                isMainMenu = false;
+//                isCreateView = true;
+//                isLoginView = false;
+//                System.out.println("<--Going Back");
+//                break;
+//            }
+//
 //
 //        }
-    }
-
-    private static void CreateView() {
-        System.out.println("CreateView");
-    }
+//    }
 
 }
