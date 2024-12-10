@@ -3,17 +3,28 @@ import java.util.Scanner;
 
 public class Accounts implements IBankAccount{
 
+    //strings
     private String usernameGiven;
     private String passwordGiven;
-
+    //Numerical variables
+    private double balance = 0.0;
+    //booleans
     private boolean isMainMenu = true;
     private boolean isCreateView = false;
     private boolean isLoginView= false;
     private static Scanner scan = new Scanner(System.in);
+    private boolean isValidLogin = false;
+    private boolean isValidCreate = false;
+
+    //Enums
+    private AccountType accountType;
+    private TransactionType transactionType;
 
     private ArrayList<String> usernamesList = new ArrayList<>();
     private ArrayList<String> passwordsList  = new ArrayList<>();
 
+    private Validator validator = new Validator();
+    //Login and Create Views
     public void LoginView() {
 
         System.out.println("=============");
@@ -46,7 +57,10 @@ public class Accounts implements IBankAccount{
                 System.out.println("<--Going Back");
                 break;
             }
+
         }
+        //System.out.println("<--Continuing");
+        //break out of loop and continue login process when login details were correct.
     }
 
     public void CreateView() {
@@ -57,6 +71,7 @@ public class Accounts implements IBankAccount{
         while(isCreateView && !isLoginView && !isMainMenu) {
             String usernameEntered;
             String passwordEntered;
+            int accTypeSelected;
             System.out.println("""
                             If You Want To Go Back To Main Menu Enter '0'.
                             For any following prompts in this view.
@@ -81,13 +96,52 @@ public class Accounts implements IBankAccount{
                 System.out.println("<--Going Back");
                 break;
             }
+            System.out.println("[1] -SAVINGS-");
+            System.out.println("[2] -BASIC-");
+            System.out.println("[3] -BUSINESS-");
+            System.out.println("Please Select What Type Of Account You Would Like to Create From Available Options: ");
+            accTypeSelected = scan.nextInt();
 
+            //successful creation
+            switch (accTypeSelected) {
+                case 1:
+                    accountType = AccountType.SAVINGS;
+                    //call create account here
+                    if(isValidCreate){
+                        isCreateView = true;
+                    }
+                    break;
+                case 2:
+                    accountType = AccountType.BASIC;
+                    //call create account here
+                    CreateValidate(usernameEntered, passwordEntered, accountType);
+                    break;
+                case 3:
+                    accountType = AccountType.BUSINESS;
+                    //call create account here
+                    CreateValidate(usernameEntered, passwordEntered, accountType);
+                default:
+                    System.out.println("That option does not exist. Select one that does. Lets try this again");
+            }
 
         }
     }
-    public void CreateAccount(String user, String pass)
-    {
+    private void CreateValidate(String user, String pass, AccountType accTypeSelected){
+        //return true;
+        // call create account here after validated true
 
+    }
+    private void CreateAccount(String user, String pass, AccountType accTypeSelected)
+    {
+        try{
+
+        }
+        catch(Exception e){
+
+        }
+        finally{
+
+        }
     }
 
 
