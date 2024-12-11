@@ -1,9 +1,8 @@
 
 interface IBankAccount {
 
-    void DepositMoney(String amount);
-    void WithdrawMoney(String amount);
-    void SendMoney(String usrnameToSend, String amount);
+    void DepositMoney(int index, float amount);
+    void WithdrawMoney(int index, float amount);
 
 
 }

@@ -7,12 +7,16 @@ public class Accounts implements IBankAccount{
     private String usernameGiven;
     private String passwordGiven;
     //Numerical variables
-    private double balance = 0.0;
+    private float balanceFloat = 0.0F;
+    private String balanceString;
+    private int indexOfAccount;
     //booleans
     private boolean isMainMenu = true;
     private boolean isCreateView = false;
     private boolean isLoginView= false;
     private boolean isUsersAccountView = false;
+    private boolean isDepositeView = false;
+    private boolean isWithdrawalView = false;
 
     private static Scanner scan = new Scanner(System.in);
     private boolean isValidLogin = false;
@@ -25,6 +29,7 @@ public class Accounts implements IBankAccount{
     private ArrayList<String> usernamesList = new ArrayList<>();
     private ArrayList<String> passwordsList  = new ArrayList<>();
     private ArrayList<AccountType> accountTypeList = new ArrayList<>();
+    private ArrayList<Float> balanceList = new ArrayList<>();
 
     private Validator validator;
     public Accounts(){
@@ -74,7 +79,7 @@ public class Accounts implements IBankAccount{
                 isCreateView = false;
                 isLoginView = false;
                 isUsersAccountView = true;
-                ViewUsersAccount(usernameEntered, accountType);
+                ViewUsersAccount(indexOfAccount, usernameEntered, accountType, balanceList.get(indexOfAccount));
             }
             else{
                 System.out.println("Login Failed, This Username and/or password either doesnt exist. Try again");
@@ -138,12 +143,13 @@ public class Accounts implements IBankAccount{
                         //since it is valid, Add the username, password and account type to their respective arraylist.
                         usernamesList.add(usernameEntered);
                         passwordsList.add(passwordEntered);
+                        accountTypeList.add(accountType);
+                        balanceList.add(0.0F);
+
                         System.out.println("Accounts usernames arraylist: "+ usernamesList);
                         System.out.println("Accounts passwords arraylist: "+ passwordsList);
                         System.out.println("Accounts account type arraylist: "+ accountTypeList);
-                        accountTypeList.add(accountType);
-                        //validator.fillUsernamesArrayList();
-                        //validator.fillPasswordsArrayList();
+
                         isMainMenu = true;
                         isCreateView = false;
                         isLoginView = false;
@@ -168,10 +174,12 @@ public class Accounts implements IBankAccount{
                         usernamesList.add(usernameEntered);
                         passwordsList.add(passwordEntered);
                         accountTypeList.add(accountType);
+                        balanceList.add(0.0F);
 
                         System.out.println("Accounts usernames arraylist: "+ usernamesList);
                         System.out.println("Accounts passwords arraylist: "+ passwordsList);
                         System.out.println("Accounts account type arraylist: "+ accountTypeList);
+
 
                         isMainMenu = true;
                         isCreateView = false;
@@ -196,10 +204,13 @@ public class Accounts implements IBankAccount{
                         usernamesList.add(usernameEntered);
                         passwordsList.add(passwordEntered);
                         accountTypeList.add(accountType);
+                        balanceList.add(0.0F);
+
 
                         System.out.println("Accounts usernames arraylist: "+ usernamesList);
                         System.out.println("Accounts passwords arraylist: "+ passwordsList);
                         System.out.println("Accounts account type arraylist: "+ accountTypeList);
+
 
                         isMainMenu = true;
                         isCreateView = false;
@@ -240,7 +251,9 @@ public class Accounts implements IBankAccount{
                         ia = i;
                     }
                 }
-                accountType = accountTypeList.get(ia);
+                indexOfAccount = ia;
+                accountType = accountTypeList.get(indexOfAccount);
+                balanceFloat = balanceList.get(indexOfAccount);
             }
         }
         if(usernameMatches && passwordMatches) {
@@ -253,36 +266,78 @@ public class Accounts implements IBankAccount{
 
     }
 
-    private void ViewUsersAccount(String username, AccountType accountType){
+    private void ViewUsersAccount(int index, String username, AccountType accountType, Float accBalanceFl){
+        String initialBalanceStr = Float.toString(accBalanceFl);
+
         System.out.println("=============");
         System.out.println("Logged Into Bank Account View");
         System.out.println("=============");
+
         System.out.println("Account Username: " + username);
         System.out.println("Account Type: " + accountType);
+        System.out.println("Account Balance: " + initialBalanceStr);
         System.out.println("-------------");
 
         while(isUsersAccountView && !isCreateView && !isLoginView && !isMainMenu){
+            int actionSelected;
+            System.out.println("New Account Balance: " + accBalanceFl);
+
+
+            System.out.println("What do you want to do?");
+            System.out.println("[1] Deposit Money");
+            System.out.println("[2] Withdraw Money");
+            System.out.println("[3] Log Out & Go To Main Menu");
+
+            actionSelected = scan.nextInt();
+            scan.nextLine();
+
+            switch(actionSelected){
+                case 1:
+                    System.out.println("You selected [1] Deposit Money");
+                    System.out.println("Enter Amount To Deposit (Float Value): ");
+                    float depositAmount = scan.nextFloat();
+                    scan.nextLine();
+                    float newBalance = balanceList.get(index) + depositAmount;
+                    System.out.println("New Account Balance: "+newBalance);
+                    DepositMoney(index, depositAmount);
+                    break;
+
+                case 2:
+                    System.out.println("You selected [2] Withdraw Money");
+                    System.out.println("Enter Amount To Withdraw (Float Value): ");
+                    float withdrawAmount = scan.nextFloat();
+                    scan.nextLine();
+                    float newBalance2 = balanceList.get(index) - withdrawAmount;
+                    System.out.println("New Account Balance: " + newBalance2);
+                    WithdrawMoney(index, withdrawAmount);
+                    break;
+
+                case 3:
+                    System.out.println("You selected [3] Log Out & Quit");
+                    break;
+
+                default:
+                    System.out.println("That option does not exist. Select a valid option!");
+            }
 
 
 
         }
     }
+
     @Override
-    public void DepositMoney(String amount)
+    public void DepositMoney(int index,float amount)
     {
-
+        balanceList.set(index, amount);
+        System.out.println("Successfully Deposited");
     }
 
     @Override
-    public void WithdrawMoney(String amount) {
-
+    public void WithdrawMoney(int index, float amount) {
+        balanceList.set(index, amount);
+        System.out.println("Successfully Withdrawn");
     }
 
-    @Override
-    public void SendMoney(String usrnameToSend, String amount)
-    {
-
-    }
 
     //Encapsulation down here
     public Boolean getMainBool(){
@@ -341,6 +396,30 @@ public class Accounts implements IBankAccount{
     }
     public ArrayList<AccountType> getAccountTypeList() {
         return accountTypeList;
+    }
+
+    public boolean isDepositeView() {
+        return isDepositeView;
+    }
+
+    public void setDepositeView(boolean depositeView) {
+        isDepositeView = depositeView;
+    }
+
+    public boolean isWithdrawalView() {
+        return isWithdrawalView;
+    }
+
+    public void setWithdrawalView(boolean withdrawalView) {
+        isWithdrawalView = withdrawalView;
+    }
+
+    public boolean isTransferView() {
+        return isTransferView;
+    }
+
+    public void setTransferView(boolean transferView) {
+        isTransferView = transferView;
     }
 
     //accountTypeList
