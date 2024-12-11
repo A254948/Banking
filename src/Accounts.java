@@ -66,8 +66,7 @@ public class Accounts implements IBankAccount{
             }
 
         }
-        //System.out.println("<--Continuing");
-        //break out of loop and continue login process when login details were correct.
+
     }
 
     public void CreateView() {
@@ -122,8 +121,12 @@ public class Accounts implements IBankAccount{
                         //since it is valid, Add the username, password and account type to their respective arraylist.
                         usernamesList.add(usernameEntered);
                         passwordsList.add(passwordEntered);
+                        System.out.println("Accounts usernames arraylist: "+ usernamesList);
+                        System.out.println("Accounts passwords arraylist: "+ usernamesList);
+                        System.out.println("Accounts account type arraylist: "+ usernamesList);
                         accountTypeList.add(accountType);
-
+                        //validator.fillUsernamesArrayList();
+                        //validator.fillPasswordsArrayList();
                         isMainMenu = true;
                         isCreateView = false;
                         isLoginView = false;
@@ -148,6 +151,10 @@ public class Accounts implements IBankAccount{
                         passwordsList.add(passwordEntered);
                         accountTypeList.add(accountType);
 
+                        System.out.println("Accounts usernames arraylist: "+ usernamesList);
+                        System.out.println("Accounts passwords arraylist: "+ usernamesList);
+                        System.out.println("Accounts account type arraylist: "+ usernamesList);
+
                         isMainMenu = true;
                         isCreateView = false;
                         isLoginView = false;
@@ -170,6 +177,10 @@ public class Accounts implements IBankAccount{
                         usernamesList.add(usernameEntered);
                         passwordsList.add(passwordEntered);
                         accountTypeList.add(accountType);
+
+                        System.out.println("Accounts usernames arraylist: "+ usernamesList);
+                        System.out.println("Accounts passwords arraylist: "+ usernamesList);
+                        System.out.println("Accounts account type arraylist: "+ usernamesList);
 
                         isMainMenu = true;
                         isCreateView = false;
