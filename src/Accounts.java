@@ -27,10 +27,8 @@ public class Accounts implements IBankAccount{
     private ArrayList<AccountType> accountTypeList = new ArrayList<>();
 
     private Validator validator;
-    public Accounts(boolean doThis){
-//        if(doThis) {
-//            this.validator = new Validator(this);
-//        }
+    public Accounts(){
+
         this.validator = new Validator(this);
     }
     //Login and Create Views
@@ -39,7 +37,7 @@ public class Accounts implements IBankAccount{
         System.out.println("=============");
         System.out.println("Login view");
         System.out.println("=============");
-        while(isLoginView && !isMainMenu && !isCreateView) {
+        while(isLoginView && !isMainMenu && !isCreateView && !isUsersAccountView) {
             String usernameEntered;
             String passwordEntered;
             System.out.println("""
@@ -53,6 +51,7 @@ public class Accounts implements IBankAccount{
                 isMainMenu = true;
                 isCreateView = false;
                 isLoginView = false;
+                isUsersAccountView= false;
                 System.out.println("<--Going Back");
                 break;
             }
@@ -63,12 +62,19 @@ public class Accounts implements IBankAccount{
                 isMainMenu = true;
                 isCreateView = false;
                 isLoginView = false;
+                isUsersAccountView= false;
                 System.out.println("<--Going Back");
                 break;
             }
-            isValidLogin = ValidateLogIntoAccount(usernameEntered, passwordEntered);
+            isValidLogin = validateLogIntoAccount(usernameEntered, passwordEntered);
             if (isValidLogin) {
                 System.out.println("Login Successful");
+                System.out.println("--Logging You Into Your Account--");
+                isMainMenu = false;
+                isCreateView = false;
+                isLoginView = false;
+                isUsersAccountView = true;
+                ViewUsersAccount(usernameEntered, accountType);
             }
             else{
                 System.out.println("Login Failed, This Username and/or password either doesnt exist. Try again");
@@ -78,12 +84,12 @@ public class Accounts implements IBankAccount{
 
     }
 
-    public void CreateView() {
+    public void createView() {
         System.out.println("=============");
         System.out.println("Create Account View");
         System.out.println("=============");
 
-        while(isCreateView && !isLoginView && !isMainMenu) {
+        while(isCreateView && !isLoginView && !isMainMenu && !isUsersAccountView) {
             String usernameEntered;
             String passwordEntered;
             int accTypeSelected;
@@ -98,6 +104,7 @@ public class Accounts implements IBankAccount{
                 isMainMenu = true;
                 isCreateView = false;
                 isLoginView = false;
+                isUsersAccountView = false;
                 System.out.println("<--Going Back");
                 break;
 
@@ -108,6 +115,7 @@ public class Accounts implements IBankAccount{
                 isMainMenu = true;
                 isCreateView = false;
                 isLoginView = false;
+                isUsersAccountView = false;
                 System.out.println("<--Going Back");
                 break;
             }
@@ -131,14 +139,15 @@ public class Accounts implements IBankAccount{
                         usernamesList.add(usernameEntered);
                         passwordsList.add(passwordEntered);
                         System.out.println("Accounts usernames arraylist: "+ usernamesList);
-                        System.out.println("Accounts passwords arraylist: "+ usernamesList);
-                        System.out.println("Accounts account type arraylist: "+ usernamesList);
+                        System.out.println("Accounts passwords arraylist: "+ passwordsList);
+                        System.out.println("Accounts account type arraylist: "+ accountTypeList);
                         accountTypeList.add(accountType);
                         //validator.fillUsernamesArrayList();
                         //validator.fillPasswordsArrayList();
                         isMainMenu = true;
                         isCreateView = false;
                         isLoginView = false;
+                        isUsersAccountView = false;
                     }
                     else{
                         System.out.println("--CREATE ACCOUNT IS INVALID--");
@@ -161,12 +170,13 @@ public class Accounts implements IBankAccount{
                         accountTypeList.add(accountType);
 
                         System.out.println("Accounts usernames arraylist: "+ usernamesList);
-                        System.out.println("Accounts passwords arraylist: "+ usernamesList);
-                        System.out.println("Accounts account type arraylist: "+ usernamesList);
+                        System.out.println("Accounts passwords arraylist: "+ passwordsList);
+                        System.out.println("Accounts account type arraylist: "+ accountTypeList);
 
                         isMainMenu = true;
                         isCreateView = false;
                         isLoginView = false;
+                        isUsersAccountView = false;
                     }
                     else{
                         System.out.println("--CREATE ACCOUNT IS INVALID--");
@@ -188,12 +198,13 @@ public class Accounts implements IBankAccount{
                         accountTypeList.add(accountType);
 
                         System.out.println("Accounts usernames arraylist: "+ usernamesList);
-                        System.out.println("Accounts passwords arraylist: "+ usernamesList);
-                        System.out.println("Accounts account type arraylist: "+ usernamesList);
+                        System.out.println("Accounts passwords arraylist: "+ passwordsList);
+                        System.out.println("Accounts account type arraylist: "+ accountTypeList);
 
                         isMainMenu = true;
                         isCreateView = false;
                         isLoginView = false;
+                        isUsersAccountView = false;
                     }
                     else{
                         System.out.println("--CREATE ACCOUNT IS INVALID--");
@@ -208,29 +219,33 @@ public class Accounts implements IBankAccount{
         }
     }
 
-
-    private Boolean ValidateLogIntoAccount(String usrname, String passwrd)
+    private Boolean validateLogIntoAccount(String usrname, String passwrd)
     {
         boolean usernameMatches = false;
         boolean passwordMatches = false;
-
+        int ia = 0;
         if(usernamesList != null && passwordsList != null) {
             if (!usernamesList.isEmpty() && !passwordsList.isEmpty()) {
-                for(int i = 0; i < usernamesList.size();i++){
+                for(int i = 0; i < usernamesList.size(); i++){
                     if(usernamesList.get(i).equals(usrname)){
                         usernameMatches = true;
+                        ia = i;
+
                     }
+
                 }
-                for(int i =0; i < passwordsList.size();i++){
+                for(int i =0; i < passwordsList.size(); i++){
                     if(passwordsList.get(i).equals(passwrd)){
                         passwordMatches = true;
+                        ia = i;
                     }
                 }
-
+                accountType = accountTypeList.get(ia);
             }
         }
         if(usernameMatches && passwordMatches) {
             return true;
+
         }
         else{
             return false;
@@ -238,6 +253,20 @@ public class Accounts implements IBankAccount{
 
     }
 
+    private void ViewUsersAccount(String username, AccountType accountType){
+        System.out.println("=============");
+        System.out.println("Logged Into Bank Account View");
+        System.out.println("=============");
+        System.out.println("Account Username: " + username);
+        System.out.println("Account Type: " + accountType);
+        System.out.println("-------------");
+
+        while(isUsersAccountView && !isCreateView && !isLoginView && !isMainMenu){
+
+
+
+        }
+    }
     @Override
     public void DepositMoney(String amount)
     {
@@ -254,7 +283,6 @@ public class Accounts implements IBankAccount{
     {
 
     }
-
 
     //Encapsulation down here
     public Boolean getMainBool(){

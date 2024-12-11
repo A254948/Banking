@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String[] args) {
         //Variables
-        Accounts accounts = new Accounts(false);
+        Accounts accounts = new Accounts();
 
         int mainOptionSelected;
         boolean isRunning = true;
@@ -62,7 +62,7 @@ public class Main {
                         //isLoginView= true;
                         accounts.setLoginViewBool(false);
                         accounts.setAccountViewBool(false);
-                        accounts.CreateView();
+                        accounts.createView();
                         break;
 
                     //QUIT OPTION
