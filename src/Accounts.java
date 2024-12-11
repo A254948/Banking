@@ -79,7 +79,7 @@ public class Accounts implements IBankAccount{
                 isCreateView = false;
                 isLoginView = false;
                 isUsersAccountView = true;
-                ViewUsersAccount(indexOfAccount, usernameEntered, accountType, balanceList.get(indexOfAccount));
+                ViewUsersAccount(indexOfAccount, usernameEntered, accountTypeList.get(indexOfAccount), balanceList.get(indexOfAccount));
             }
             else{
                 System.out.println("Login Failed, This Username and/or password either doesnt exist. Try again");
@@ -164,7 +164,7 @@ public class Accounts implements IBankAccount{
 
                 case 2:
                     System.out.println("BASIC ACCOUNT TYPE SELECTED");
-                    //accountType = AccountType.BASIC;
+                    accountType = AccountType.BASIC;
                     //call create account here
                     System.out.println("VALIDATING ACCOUNT....");
                     isValidCreate = validator.createValidator(usernameEntered, passwordEntered, accountType);
@@ -194,7 +194,7 @@ public class Accounts implements IBankAccount{
                     break;
                 case 3:
                     System.out.println("BUSINESS ACCOUNT TYPE SELECTED");
-                    //accountType = AccountType.BUSINESS;
+                    accountType = AccountType.BUSINESS;
                     //call create account here
                     System.out.println("VALIDATING ACCOUNT....");
                     isValidCreate = validator.createValidator(usernameEntered, passwordEntered, accountType);
@@ -266,11 +266,11 @@ public class Accounts implements IBankAccount{
 
     }
 
-    private void ViewUsersAccount(int index, String username, AccountType accountType, Float accBalanceFl){
+    private void ViewUsersAccount(int index, String username, AccountType accType, Float accBalanceFl){
         System.out.println("=============");
         System.out.println("Logged Into Bank Account View");
         System.out.println("=============");
-
+        accountType = accType;
         System.out.println("Account Username: " + username);
         System.out.println("Account Type: " + accountType);
         System.out.println("Account Balance: " + accBalanceFl);
