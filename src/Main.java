@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String[] args) {
         //Variables
-        Accounts accounts = new Accounts();
+        Accounts accounts = new Accounts(false);
 
         int mainOptionSelected;
         boolean isRunning = true;

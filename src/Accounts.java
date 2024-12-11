@@ -22,8 +22,14 @@ public class Accounts implements IBankAccount{
 
     private ArrayList<String> usernamesList = new ArrayList<>();
     private ArrayList<String> passwordsList  = new ArrayList<>();
+    private ArrayList<AccountType> accountTypeList = new ArrayList<>();
 
-    private Validator validator = new Validator();
+    private Validator validator;
+    public Accounts(boolean doThis){
+        if(doThis) {
+            this.validator = new Validator(this);
+        }
+    }
     //Login and Create Views
     public void LoginView() {
 
@@ -101,46 +107,83 @@ public class Accounts implements IBankAccount{
             System.out.println("[3] -BUSINESS-");
             System.out.println("Please Select What Type Of Account You Would Like to Create From Available Options: ");
             accTypeSelected = scan.nextInt();
-
+            scan.nextLine();
             //successful creation
             switch (accTypeSelected) {
                 case 1:
+                    System.out.println("SAVINGS ACCOUNT TYPE SELECTED");
                     accountType = AccountType.SAVINGS;
                     //call create account here
+                    System.out.println("VALIDATING ACCOUNT....");
+                    isValidCreate = validator.createValidator(usernameEntered, passwordEntered, accountType);
                     if(isValidCreate){
-                        isCreateView = true;
+                        System.out.println("--CREATE ACCOUNT IS VALID--");
+                        //since it is valid, Add the username, password and account type to their respective arraylist.
+                        usernamesList.add(usernameEntered);
+                        passwordsList.add(passwordEntered);
+                        accountTypeList.add(accountType);
+
+                        isMainMenu = true;
+                        isCreateView = false;
+                        isLoginView = false;
+                    }
+                    else{
+                        System.out.println("--CREATE ACCOUNT IS INVALID--");
+                        System.out.println("--Try Creating Again--");
+                        break;
                     }
                     break;
+
                 case 2:
-                    accountType = AccountType.BASIC;
+                    System.out.println("BASIC ACCOUNT TYPE SELECTED");
+                    //accountType = AccountType.BASIC;
                     //call create account here
-                    CreateValidate(usernameEntered, passwordEntered, accountType);
+                    System.out.println("VALIDATING ACCOUNT....");
+                    isValidCreate = validator.createValidator(usernameEntered, passwordEntered, accountType);
+                    if(isValidCreate){
+                        System.out.println("--CREATE ACCOUNT IS VALID--");
+                        //since it is valid, Add the username, password and account type to their respective arraylist.
+                        usernamesList.add(usernameEntered);
+                        passwordsList.add(passwordEntered);
+                        accountTypeList.add(accountType);
+
+                        isMainMenu = true;
+                        isCreateView = false;
+                        isLoginView = false;
+                    }
+                    else{
+                        System.out.println("--CREATE ACCOUNT IS INVALID--");
+                        System.out.println("--Try Creating Again--");
+                        break;
+                    }
                     break;
                 case 3:
-                    accountType = AccountType.BUSINESS;
+                    System.out.println("BUSINESS ACCOUNT TYPE SELECTED");
+                    //accountType = AccountType.BUSINESS;
                     //call create account here
-                    CreateValidate(usernameEntered, passwordEntered, accountType);
+                    System.out.println("VALIDATING ACCOUNT....");
+                    isValidCreate = validator.createValidator(usernameEntered, passwordEntered, accountType);
+                    if(isValidCreate){
+                        System.out.println("--CREATE ACCOUNT IS VALID--");
+                        //since it is valid, Add the username, password and account type to their respective arraylist.
+                        usernamesList.add(usernameEntered);
+                        passwordsList.add(passwordEntered);
+                        accountTypeList.add(accountType);
+
+                        isMainMenu = true;
+                        isCreateView = false;
+                        isLoginView = false;
+                    }
+                    else{
+                        System.out.println("--CREATE ACCOUNT IS INVALID--");
+                        System.out.println("--Try Creating Again--");
+                        break;
+                    }
+                    break;
+
                 default:
                     System.out.println("That option does not exist. Select one that does. Lets try this again");
             }
-
-        }
-    }
-    private void CreateValidate(String user, String pass, AccountType accTypeSelected){
-        //return true;
-        // call create account here after validated true
-
-    }
-    private void CreateAccount(String user, String pass, AccountType accTypeSelected)
-    {
-        try{
-
-        }
-        catch(Exception e){
-
-        }
-        finally{
-
         }
     }
 
@@ -209,5 +252,17 @@ public class Accounts implements IBankAccount{
     public void setPasswordGiven(String passwordGiven) {
         this.passwordGiven = passwordGiven;
     }
+
+    public ArrayList<String> getUsernamesList() {
+        return usernamesList;
+    }
+    public ArrayList<String> getPasswordsList() {
+        return passwordsList;
+    }
+    public ArrayList<AccountType> getAccountTypeList() {
+        return accountTypeList;
+    }
+
+    //accountTypeList
 
 }
