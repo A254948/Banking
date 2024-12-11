@@ -267,15 +267,13 @@ public class Accounts implements IBankAccount{
     }
 
     private void ViewUsersAccount(int index, String username, AccountType accountType, Float accBalanceFl){
-        String initialBalanceStr = Float.toString(accBalanceFl);
-
         System.out.println("=============");
         System.out.println("Logged Into Bank Account View");
         System.out.println("=============");
 
         System.out.println("Account Username: " + username);
         System.out.println("Account Type: " + accountType);
-        System.out.println("Account Balance: " + initialBalanceStr);
+        System.out.println("Account Balance: " + accBalanceFl);
         System.out.println("-------------");
 
         while(isUsersAccountView && !isCreateView && !isLoginView && !isMainMenu){
