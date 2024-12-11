@@ -26,9 +26,10 @@ public class Accounts implements IBankAccount{
 
     private Validator validator;
     public Accounts(boolean doThis){
-        if(doThis) {
-            this.validator = new Validator(this);
-        }
+//        if(doThis) {
+//            this.validator = new Validator(this);
+//        }
+        this.validator = new Validator(this);
     }
     //Login and Create Views
     public void LoginView() {

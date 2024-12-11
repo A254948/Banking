@@ -48,12 +48,14 @@ public class Validator implements IValidator {
     }
 
     private void recheckArrayList(){
-        if(!usernamesExisting.isEmpty()){
-            usernamesExisting.clear();
-            System.out.println("Cleared the arraylist");
+        if(usernamesExisting != null){
+            if(!usernamesExisting.isEmpty()){
+                usernamesExisting.clear();
+                System.out.println("Cleared the arraylist");
+            }
         }
+
         this.usernamesExisting = new ArrayList<>(valAccounds.getUsernamesList());
         System.out.println("Refilled arraylist: "+usernamesExisting);
     }
-
 }
