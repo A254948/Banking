@@ -16,7 +16,7 @@ public class Main {
 
         while (isRunning) {
 
-            if(accounts.getMainBool() && !accounts.getCreateViewBool() && !accounts.getLoginViewBool()) {
+            if(accounts.getMainBool() && !accounts.getCreateViewBool() && !accounts.getLoginViewBool() && !accounts.getAccountViewBool()) {
                 System.out.println("-Welcome To Simple Banking App-:");
                 //Entry message prints
                 System.out.println("=============");
@@ -47,6 +47,7 @@ public class Main {
                         accounts.setCreateViewBool(false);
                         //isLoginView= true;
                         accounts.setLoginViewBool(true);
+                        accounts.setAccountViewBool(false);
                         accounts.LoginView();
 
                         
@@ -60,6 +61,7 @@ public class Main {
                         accounts.setCreateViewBool(true);
                         //isLoginView= true;
                         accounts.setLoginViewBool(false);
+                        accounts.setAccountViewBool(false);
                         accounts.CreateView();
                         break;
 

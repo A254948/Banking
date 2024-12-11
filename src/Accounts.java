@@ -12,6 +12,8 @@ public class Accounts implements IBankAccount{
     private boolean isMainMenu = true;
     private boolean isCreateView = false;
     private boolean isLoginView= false;
+    private boolean isUsersAccountView = false;
+
     private static Scanner scan = new Scanner(System.in);
     private boolean isValidLogin = false;
     private boolean isValidCreate = false;
@@ -64,7 +66,14 @@ public class Accounts implements IBankAccount{
                 System.out.println("<--Going Back");
                 break;
             }
+            isValidLogin = ValidateLogIntoAccount(usernameEntered, passwordEntered);
+            if (isValidLogin) {
+                System.out.println("Login Successful");
+            }
+            else{
+                System.out.println("Login Failed, This Username and/or password either doesnt exist. Try again");
 
+            }
         }
 
     }
@@ -200,13 +209,35 @@ public class Accounts implements IBankAccount{
     }
 
 
-    public Boolean LogIntoAccount(String usrname, String passwrd)
+    private Boolean ValidateLogIntoAccount(String usrname, String passwrd)
     {
-        return true;
-    }
-    private void ValidateLoggingIn(){
+        boolean usernameMatches = false;
+        boolean passwordMatches = false;
+
+        if(usernamesList != null && passwordsList != null) {
+            if (!usernamesList.isEmpty() && !passwordsList.isEmpty()) {
+                for(int i = 0; i < usernamesList.size();i++){
+                    if(usernamesList.get(i).equals(usrname)){
+                        usernameMatches = true;
+                    }
+                }
+                for(int i =0; i < passwordsList.size();i++){
+                    if(passwordsList.get(i).equals(passwrd)){
+                        passwordMatches = true;
+                    }
+                }
+
+            }
+        }
+        if(usernameMatches && passwordMatches) {
+            return true;
+        }
+        else{
+            return false;
+        }
 
     }
+
     @Override
     public void DepositMoney(String amount)
     {
@@ -250,6 +281,15 @@ public class Accounts implements IBankAccount{
         this.isCreateView = createViewBool;
     }
 
+    public Boolean getAccountViewBool(){
+        return isUsersAccountView;
+    }
+
+    public void setAccountViewBool(boolean accountViewBool){
+        this.isUsersAccountView = accountViewBool;
+    }
+
+    //isUsersAccountView
     public String getUsernameGiven() {
         return usernameGiven;
     }
