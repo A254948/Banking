@@ -278,7 +278,7 @@ public class Accounts implements IBankAccount{
 
         while(isUsersAccountView && !isCreateView && !isLoginView && !isMainMenu){
             int actionSelected;
-            System.out.println("New Account Balance: " + accBalanceFl);
+            System.out.println("New Account Balance: " + balanceList.get(index));
 
 
             System.out.println("What do you want to do?");
@@ -296,8 +296,7 @@ public class Accounts implements IBankAccount{
                     float depositAmount = scan.nextFloat();
                     scan.nextLine();
                     float newBalance = balanceList.get(index) + depositAmount;
-                    System.out.println("New Account Balance: "+newBalance);
-                    DepositMoney(index, depositAmount);
+                    DepositMoney(index, newBalance);
                     break;
 
                 case 2:
@@ -306,12 +305,17 @@ public class Accounts implements IBankAccount{
                     float withdrawAmount = scan.nextFloat();
                     scan.nextLine();
                     float newBalance2 = balanceList.get(index) - withdrawAmount;
-                    System.out.println("New Account Balance: " + newBalance2);
-                    WithdrawMoney(index, withdrawAmount);
+                    WithdrawMoney(index, newBalance2);
                     break;
 
                 case 3:
                     System.out.println("You selected [3] Log Out & Quit");
+                    System.out.println("LOGGING OUT AND QUITTING BACK TO MAIN MENU");
+                    isMainMenu = true;
+                    isCreateView = false;
+                    isLoginView = false;
+                    isUsersAccountView = false;
+                    //quit
                     break;
 
                 default:
@@ -327,12 +331,14 @@ public class Accounts implements IBankAccount{
     public void DepositMoney(int index,float amount)
     {
         balanceList.set(index, amount);
+        System.out.println("New Account Balance: " + amount);
         System.out.println("Successfully Deposited");
     }
 
     @Override
     public void WithdrawMoney(int index, float amount) {
         balanceList.set(index, amount);
+        System.out.println("New Account Balance: " + amount);
         System.out.println("Successfully Withdrawn");
     }
 
@@ -412,13 +418,6 @@ public class Accounts implements IBankAccount{
         isWithdrawalView = withdrawalView;
     }
 
-    public boolean isTransferView() {
-        return isTransferView;
-    }
-
-    public void setTransferView(boolean transferView) {
-        isTransferView = transferView;
-    }
 
     //accountTypeList
 
