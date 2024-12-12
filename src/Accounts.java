@@ -24,7 +24,6 @@ public class Accounts implements IBankAccount{
 
     //Enums
     private AccountType accountType;
-    private TransactionType transactionType;
 
     private ArrayList<String> usernamesList = new ArrayList<>();
     private ArrayList<String> passwordsList  = new ArrayList<>();
@@ -416,6 +415,14 @@ public class Accounts implements IBankAccount{
 
     public void setWithdrawalView(boolean withdrawalView) {
         isWithdrawalView = withdrawalView;
+    }
+
+    public float getBalanceFloat() {
+        return balanceFloat;
+    }
+
+    public void setBalanceFloat(float balanceFloat) {
+        this.balanceFloat = balanceFloat;
     }
 
 
