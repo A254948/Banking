@@ -53,7 +53,7 @@ public class Validator implements IValidator {
                 System.out.println("Cleared the arraylist");
             }
         }
-        this.usernamesExisting = new ArrayList<>(valAccounds.getUsernamesList());
+        this.usernamesExisting = new ArrayList<>(valAccounds.getPasswordsList());
         System.out.println("Refilled usernames arraylist: "+usernamesExisting);
     }
 
@@ -65,7 +65,7 @@ public class Validator implements IValidator {
                 System.out.println("Cleared the arraylist");
             }
         }
-        this.passwordsExisting = new ArrayList<>(valAccounds.getUsernamesList());
+        this.passwordsExisting = new ArrayList<>(valAccounds.getPasswordsList());
         System.out.println("Refilled usernames arraylist: "+passwordsExisting);
     }
 //    public void fillUsernamesArrayList(){
