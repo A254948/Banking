@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 
 
-public class Main extends Accounts {
+public class Main {
 
     private static Scanner scanner = new Scanner(System.in);
 
